@@ -1,5 +1,6 @@
 package com.trint.identity_service.controller;
 
+import com.trint.identity_service.dto.response.ApiResponse;
 import com.trint.identity_service.dto.request.UserCreationRequest;
 import com.trint.identity_service.dto.request.UserUpdateRequest;
 import com.trint.identity_service.entity.User;
@@ -17,8 +18,11 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    User createUser(@RequestBody @Valid UserCreationRequest request) {
-        return userService.createUser(request);
+    ApiResponse<User> createUser(@RequestBody @Valid UserCreationRequest request) {
+        ApiResponse<User> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(userService.createUser(request));
+//        return userService.createUser(request);
+        return apiResponse;
     }
 
     @GetMapping
